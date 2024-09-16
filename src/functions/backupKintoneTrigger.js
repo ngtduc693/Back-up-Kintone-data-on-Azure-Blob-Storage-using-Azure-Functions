@@ -4,6 +4,7 @@ const { uploadToBlobStorage } = require('../service/blobStorageService');
 const { backupKintoneData } = require('../service/kintoneService');
 
 app.timer('backupKintoneTrigger', {
+    schedule: '0 0 1 * *',
     handler: async (myTimer, context) => {
         try {
             console.log('Timer function processed request.');
