@@ -1,10 +1,10 @@
 const path = require('path');
 const { exec } = require('child_process');
 
-function backupKintoneData(context, config, backupDir, callback) {
+function backupKintoneData(context, config, backupFile, callback) {
     const cliKintoneLibPath = path.join(__dirname, '..', 'lib', 'cli-kintone.exe');
     const { appId, apiToken, domain } = config.kintone;
-    const kintoneCommand = `${cliKintoneLibPath} record export --app ${appId} --api-token ${apiToken} --base-url ${domain} > ${backupDir}`;
+    const kintoneCommand = `${cliKintoneLibPath} record export --app ${appId} --api-token ${apiToken} --base-url ${domain} > ${backupFile}`;
 
     exec(kintoneCommand, (error, stdout, stderr) => {
         if (error) {

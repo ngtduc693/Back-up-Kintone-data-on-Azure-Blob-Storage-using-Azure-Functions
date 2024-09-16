@@ -4,16 +4,23 @@ const { uploadToBlobStorage } = require('../service/blobStorageService');
 const { backupKintoneData } = require('../service/kintoneService');
 
 app.timer('backupKintoneTrigger', {
-    schedule: '0 0 1 * *',
     handler: async (myTimer, context) => {
         try {
             console.log('Timer function processed request.');
 
             const config = JSON.parse(fs.readFileSync(`${__dirname}/config.json`, 'utf8'));
-            const backupDir = `${config.backup.backupPath}/backup-${new Date().toISOString()}.zip`;
+            
+            const backupDir = `${__dirname}\\${config.backup.backupPath}\\backup-${sanitizeFolderName(new Date().toISOString())}`;
+
+            const backupFile = `${backupDir}\\${config.backup.backupFileName}`
+
+            if (!fs.existsSync(backupDir)) {
+                console.log(`Backup directory does not exist. Creating new directory at ${backupDir}...`);
+                fs.mkdirSync(backupDir, { recursive: true });
+            }
 
             await new Promise((resolve, reject) => {
-                backupKintoneData(context, config, backupDir, (error) => {
+                backupKintoneData(context, config, backupFile, (error) => {
                     if (error) {
                         console.log('Error during Kintone backup:', error);
                         reject(new Error('Kintone backup failed.'));
@@ -33,4 +40,9 @@ app.timer('backupKintoneTrigger', {
         }
     }
 });
-
+const sanitizeFolderName = (name) => {
+    return name
+        .replace(/[\/\\:*?"<>|]/g, '-')
+        .replace(/[\s]+/g, '-')
+        .toLowerCase();
+};
