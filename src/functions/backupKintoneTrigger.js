@@ -10,18 +10,18 @@ app.timer('backupKintoneTrigger', {
             console.log('Timer function processed request.');
 
             const config = JSON.parse(fs.readFileSync(`${__dirname}/config.json`, 'utf8'));
-            
-            const backupDir = `${__dirname}\\${config.backup.backupPath}\\backup-${sanitizeFolderName(new Date().toISOString())}`;
+            const rootFolderPath = `${__dirname}\\${config.backup.backupPath}`
+            const backupFolderName = `backup-${sanitizeFolderName(new Date().toISOString())}`;
+            const backupFolderPath = `${rootFolderPath}\\${backupFolderName}`
+            const backupFileName = config.backup.backupFileName
 
-            const backupFile = `${backupDir}\\${config.backup.backupFileName}`
-
-            if (!fs.existsSync(backupDir)) {
-                console.log(`Backup directory does not exist. Creating new directory at ${backupDir}...`);
-                fs.mkdirSync(backupDir, { recursive: true });
+            if (!fs.existsSync(backupFolderPath)) {
+                console.log(`Backup directory does not exist. Creating new directory at ${backupFolderPath}...`);
+                fs.mkdirSync(backupFolderPath, { recursive: true });
             }
 
             await new Promise((resolve, reject) => {
-                backupKintoneData(context, config, backupFile, (error) => {
+                backupKintoneData(context, config, `${backupFolderPath}\\${backupFileName}`, (error) => {
                     if (error) {
                         console.log('Error during Kintone backup:', error);
                         reject(new Error('Kintone backup failed.'));
@@ -32,7 +32,7 @@ app.timer('backupKintoneTrigger', {
                 });
             });
 
-            await uploadToBlobStorage(context, backupDir, config);
+            await uploadToBlobStorage(context, backupFolderPath, backupFolderName, backupFileName, config);
             console.log('Backup successfully uploaded to Azure Blob Storage.');
 
         } catch (error) {
