@@ -1,16 +1,15 @@
 {
     "kintone": {
-      "appId": "<your_app_id>",
-      "username": "<your_kintone_username>",
-      "password": "<your_kintone_password>",
-      "domain": "<your_kintone_domain>"
+      "appId": "",
+      "domain": "",
+      "apiToken": ""
     },
     "azure": {
-      "storageConnectionString": "<your_azure_storage_connection_string>",
-      "containerName": "backup-container"
+      "storageConnectionString": "",
+      "containerName": ""
     },
     "backup": {
-      "backupPath": "/path/to/backup"
+      "backupPath": "/"
     }
 }
   
