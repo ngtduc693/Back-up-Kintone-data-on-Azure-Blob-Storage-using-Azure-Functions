@@ -1,10 +1,16 @@
 {
-    "bindings": [
-      {
-        "name": "myTimer",
-        "type": "timerTrigger",
-        "direction": "in",
-        "schedule": "0 0 1 1 * *"
-      }
-    ]
+    "kintone": {
+      "appId": "<your_app_id>",
+      "username": "<your_kintone_username>",
+      "password": "<your_kintone_password>",
+      "domain": "<your_kintone_domain>"
+    },
+    "azure": {
+      "storageConnectionString": "<your_azure_storage_connection_string>",
+      "containerName": "backup-container"
+    },
+    "backup": {
+      "backupPath": "/path/to/backup"
+    }
 }
+  
