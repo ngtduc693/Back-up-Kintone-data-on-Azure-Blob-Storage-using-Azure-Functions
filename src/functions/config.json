@@ -1,15 +1,15 @@
 {
-    "kintone": {
-      "appId": "",
-      "domain": "",
-      "apiToken": ""
-    },
-    "azure": {
-      "storageConnectionString": "",
-      "containerName": ""
-    },
-    "backup": {
-      "backupPath": "/"
-    }
+  "kintone": {
+    "appId": "",
+    "domain": "",
+    "apiToken": ""
+  },
+  "azure": {
+    "storageConnectionString": "",
+    "containerName": ""
+  },
+  "backup": {
+    "backupPath": "backup",
+    "backupFileName": "data.json"
+  }
 }
-  
