@@ -1,19 +1,16 @@
 {
-  "name": "backupkintonedataonazure",
-  "version": "2024.9.13",
+  "name": "back-up-kintone-data-on-azure-blob-storage-using-azure-functions",
+  "version": "1.0.0",
   "description": "Backup Kintone data on Azure Blob Storage using Azure Functions and Timer Trigger once a month by Duc Nguyen",
-  "main": "src/functions/*.js",
   "scripts": {
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
     "@azure/functions": "^4.0.0",
-    "kintone-cli": "github:kintone-labs/kintone-cli"
+    "@azure/storage-blob": "^12.24.0"
   },
-  "devDependencies": {
-    "azure-functions-core-tools": "^4.x"
-  },
+  "main": "src/{index.js,functions/*.js}",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ngtduc693/Back-up-Kintone-data-on-Azure-Blob-Storage-using-Azure-Functions.git"
